@@ -1,0 +1,19 @@
+import flask
+import pandas as pd
+
+app = flask.Flask(__name__)
+
+
+@app.route("/excel")
+def show_excel():
+    df = pd.read_excel("奖牌榜.xlsx")
+    return f"""
+        <html><body>
+        <h3>奖牌榜（数据统计至8月1日凌晨0:30）</h3>
+        %s
+        </body></html>
+    """ % df.to_html()
+
+
+app.run(host="0.0.0.0", port=8888)
+-----------------------------------
